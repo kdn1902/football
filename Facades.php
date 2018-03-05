@@ -50,9 +50,8 @@ class Facades
 				echo "<p class='lead'>1/". $stadia." финала</p>";
 			else
 				echo "<p class='lead'>Финал!!!</p>";
-			$etap = new Etap($commands);
-			$commands = $etap->get_vinners();
-			$etap->show_result();
+			$etap = new Etap();
+			$commands = $etap->run_matches($commands);
 		}
 	}
 }
