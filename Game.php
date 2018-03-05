@@ -10,6 +10,4 @@ class Game
 		while($zabito == $propuscheno);
 		return [$zabito, $first, $propuscheno, $second];
 	}
-	
-	
 }
