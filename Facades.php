@@ -3,7 +3,6 @@ class Facades
 {
 	static public function get_commands()
 	{
-		global $commands;
 		ini_set("auto_detect_line_endings", true);
 		$file =  fopen ("data.csv","r");
 		if ( !$file )
@@ -25,11 +24,11 @@ class Facades
 			$commands[] = $command;
 		}
 		fclose ( $file );	
+		return $commands;
 	}
 	
-	static public function show_commands()
+	static public function show_commands($commands)
 	{
-		global $commands;
 		echo "<table class='table table-striped'>";
 		echo "<tr><td>#</td><td>Сборная</td><td>Мощность атаки</td><td>Мощность обороны</td></tr>";
 		$count = 1;
@@ -41,9 +40,8 @@ class Facades
 		echo "</table>";
 	}
 	
-	static public function run()
+	static public function run($commands)
 	{
-		global $commands;
 		$num_etapov = intval(log(count($commands),2));
 		for ($i = 0; $i < $num_etapov; $i++)
 		{
@@ -52,7 +50,8 @@ class Facades
 				echo "<p class='lead'>1/". $stadia." финала</p>";
 			else
 				echo "<p class='lead'>Финал!!!</p>";
-			$etap = new Etap();
+			$etap = new Etap($commands);
+			$commands = $etap->get_vinners();
 			$etap->show_result();
 		}
 	}

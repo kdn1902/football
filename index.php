@@ -43,10 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 else
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['submit'] == 'Начать расчет')
 {
-	Facades::get_commands();
-	Facades::show_commands();
-	Facades::run();	
+	
+	$commands = Facades::get_commands();
+	Facades::show_commands($commands);
+	Facades::run($commands);
+	
 }
+
 ?>	
 	</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

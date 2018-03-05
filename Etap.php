@@ -3,30 +3,25 @@ class Etap
 {
 	private $vinners = [];
 	private $matches = [];
-	
-	public function __construct()
+
+	public function __construct($commands)
 	{
-		global $commands;
-        $this->run_matches();
-		$this->get_vinners();
+        $this->run_matches($commands);
 	}
 
-	protected function run_matches()
+	protected function run_matches($commands)
 	{
-		global $commands;
 		$num_matches = intval(count($commands)/2);
 		shuffle($commands);
 		for ($i=0; $i < $num_matches; $i++)
 		{
-			$match = new Game($commands[$i*2],$commands[$i*2 + 1]);
-			$this->matches[$i] = $match->get_result();
+			$this->matches[$i] = Game::get_result($commands[$i*2],$commands[$i*2 + 1]);
 		}
 		
 	}
 	
-	private function get_vinners()
+	public function get_vinners()
 	{
-		global $commands;
 		foreach ($this->matches as $match)
 		{
 			if($match[0] > $match[2]) 
@@ -34,7 +29,7 @@ class Etap
 			else
 				$this->vinners[] = $match[3];
 		}
-		$commands = $this->vinners;
+		return $this->vinners;
 	}
 
 	
